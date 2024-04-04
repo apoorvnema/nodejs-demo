@@ -1,7 +1,24 @@
-const http = require("http");
+const express = require("express");
 
-const routes = require("./routes");
+const app = express();
 
-const server = http.createServer(routes);
+app.use((req, res, next) => {
+    console.log("Middleware 1");
+    next();
+})
 
-server.listen(3000);
+app.use((req, res, next) => {
+    console.log("Middleware 2");
+    res.send("<h1>Hello World</h1>");
+})
+
+app.listen(3000);
+
+
+// const http = require("http");
+
+// const routes = require("./routes");
+
+// const server = http.createServer(routes);
+
+// server.listen(3000);
