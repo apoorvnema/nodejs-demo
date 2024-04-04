@@ -1,24 +1,18 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-    console.log("Middleware 1");
-    next();
+app.get('/add-product', (req, res) => {
+    res.send("<form action='/product' method='POST'><input type='text' name='item' placeholder='Enter item name here'><br><input type='number' name='size' placeholder='Enter item size here'><br><button type='submit'>Add</button></form>")
 })
 
-app.use((req, res, next) => {
-    console.log("Middleware 2");
-    res.send("<h1>Hello World</h1>");
+app.post('/product', (req, res) => {
+    const itemDetails = req.body;
+    console.log(itemDetails);
+    res.redirect('/add-product');
 })
 
 app.listen(3000);
 
-
-// const http = require("http");
-
-// const routes = require("./routes");
-
-// const server = http.createServer(routes);
-
-// server.listen(3000);
